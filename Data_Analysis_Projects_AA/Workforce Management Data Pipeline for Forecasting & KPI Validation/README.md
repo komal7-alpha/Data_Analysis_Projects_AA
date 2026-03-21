@@ -42,13 +42,17 @@ Instead, the goal is to build a **forecasting-ready, SQL-based master dataset** 
 In real enterprise WFM environments, the following challenges are very common:
 
 * Data arrives from **multiple sources** (Excel files, tools, systems)
+
 * Queue names are **inconsistent and messy**
+
 * Demand is affected by **country-level holidays**
+
 * Manual Excel-based workflows are:
 
   * Slow
   * Error-prone
   * Not scalable
+
 * Forecasting and KPI validation require a **trusted historical dataset**
 
 ### Problem Statement
@@ -81,20 +85,13 @@ Produce a **single master WFM dataset and push it to SQL Server using PySpark** 
 * **Web Scraping** – Public holiday reference data
 * **Power BI** – Reporting and visualization (future stage)
 
-### Why PySpark?
-
-PySpark is used for:
-
-* Processing large datasets (lakhs to millions of rows)
-* Efficient distributed transformations
-* Scalable ingestion into SQL Server
-* Reflecting real-world data engineering practices
-
 ---
 
 ## Data Sources Used
 
-### 1. Synthetic Operational Data (Mockaroo)- https://www.mockaroo.com/
+### 1. Synthetic Operational Data (Mockaroo)
+
+🔗 https://www.mockaroo.com/
 
 * Multi-column WFM-style dataset
 * Simulates real contact center operations
@@ -109,21 +106,49 @@ Purpose:
 
 ### 2. Holiday Data (Web Scraping)
 
+🔗 https://www.timeanddate.com/holidays/
+
 * Global public holiday data
 * Multiple countries
 * Multi-year coverage
+* Scraped using Python (BeautifulSoup) and stored as a reusable dataset
 
-Merged using:
+---
+
+## Holiday Data Integration Workflow
+
+Holiday data is prepared as a **one-time preprocessing step** and stored as a reference dataset.
+
+During pipeline execution:
+
+1. Holiday dataset is loaded into the processing environment
+2. A left join is performed with the main dataset using:
 
 ```
 Date + Country
 ```
 
-Used to explain:
+3. The following columns are added:
 
-* Demand drops or spikes
-* Forecast bias
-* KPI fairness during holidays
+* Is_Holiday (0 = No, 1 = Yes)
+* Holiday_Name
+* Holiday_Type
+
+This enrichment helps explain demand variations, improves KPI interpretation, and supports forecasting adjustments.
+
+---
+
+## Web Scraping Implementation Notes
+
+* Data is scraped using:
+
+```python
+requests
+BeautifulSoup
+pandas
+```
+For year 2021-2040 for 52 countries
+
 
 ---
 
@@ -173,16 +198,6 @@ Using fuzzy matching (`rapidfuzz`).
 
 ---
 
-### Holiday Enrichment
-
-Adds:
-
-* Is_Holiday
-* Holiday_Name
-* Holiday_Type
-
----
-
 ### Derived Metrics
 
 Key metrics are computed using business logic:
@@ -199,7 +214,9 @@ Planned_Volume = Offered_Volume * 1.05
 
 ### Table: `wfm_forecasting_base`
 
-Total Columns: **29**
+Total Columns: **32**
+
+---
 
 ### Time Dimension
 
@@ -272,9 +289,17 @@ Total Columns: **29**
 
 ---
 
-## Metadata Tracking (Enterprise Design)
+### Holiday Columns
 
-A metadata table is used to track processed files:
+| Column       |
+| ------------ |
+| Is_Holiday   |
+| Holiday_Name |
+| Holiday_Type |
+
+---
+
+## Metadata Tracking (Enterprise Design)
 
 ### Table: `processed_files`
 
@@ -321,7 +346,7 @@ SQL Server acts as the **system of record**:
 
 The pipeline is designed for **automated execution**:
 
-* Reads latest/new files dynamically
+* Reads new files dynamically
 * Applies transformation logic
 * Loads into SQL Server
 * Supports scheduled execution (weekly refresh)
@@ -340,6 +365,8 @@ Metadata Tracking (SQL)
 Data Cleaning
         ↓
 Fuzzy Queue Standardization
+        ↓
+Holiday Data Join (Date + Country)
         ↓
 Feature Engineering
         ↓
@@ -360,6 +387,7 @@ This project demonstrates:
 * Data cleaning and transformation
 * Synthetic data simulation
 * KPI validation logic
+* Holiday-based demand enrichment
 * Scalable data processing using PySpark
 * Real-world WFM data engineering concepts
 
