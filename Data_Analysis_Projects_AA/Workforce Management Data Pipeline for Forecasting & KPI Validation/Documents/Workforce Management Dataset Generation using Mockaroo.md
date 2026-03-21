@@ -1,7 +1,3 @@
-Here is your **updated README (same content + added cloning process)** — nothing else changed, just extended cleanly.
-
----
-
 # Workforce Management Dataset Generation using Mockaroo
 
 This guide explains step-by-step (from scratch) how to generate a complete Workforce Management (WFO) dataset using Mockaroo.
