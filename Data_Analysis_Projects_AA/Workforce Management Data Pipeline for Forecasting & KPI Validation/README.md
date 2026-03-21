@@ -94,7 +94,7 @@ PySpark is used for:
 
 ## Data Sources Used
 
-### 1. Synthetic Operational Data (Mockaroo)
+### 1. Synthetic Operational Data (Mockaroo)- https://www.mockaroo.com/
 
 * Multi-column WFM-style dataset
 * Simulates real contact center operations
