@@ -348,6 +348,63 @@ Date | Day | Name | Type | Country
 * Building fault-tolerant data pipelines
 * Structuring data for analytics use cases
 
+---
+# List of Countries 
+
+* Australia  
+* Bangladesh  
+* Brazil  
+* Bulgaria  
+* Canada  
+* China  
+* Czech  
+* Denmark  
+* Finland  
+* France  
+* Germany  
+* Greece  
+* Hong-Kong  
+* Hungary  
+* India  
+* Indonesia  
+* Israel  
+* Italy  
+* Japan  
+* Kenya  
+* North-Korea  
+* South-Korea  
+* Malaysia  
+* Mongolia  
+* Morocco  
+* Netherlands  
+* Norway  
+* Pakistan  
+* Philippines  
+* Poland  
+* Portugal  
+* Romania  
+* Russia  
+* Slovenia  
+* South-Africa  
+* Spain  
+* Sri-Lanka  
+* Sweden  
+* Taiwan  
+* Thailand  
+* Turkey  
+* Vietnam  
+* Ukraine  
+* UK  
+* New-Zealand  
+* Belgium  
+* Luxembourg  
+* Chile  
+* Paraguay  
+* Slovakia  
+* Ireland  
+* Iceland  
+* US
+
 
 Just tell.
 
