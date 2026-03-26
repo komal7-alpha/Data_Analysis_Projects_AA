@@ -406,5 +406,4 @@ Date | Day | Name | Type | Country
 * US
 
 
-Just tell.
 
