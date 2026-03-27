@@ -332,7 +332,156 @@ Queue_Standardized
 * BR-11: Similarity threshold
 * BR-12: Fallback handling
 
+
+# Step 4: Holiday Data Integration
+
+## Purpose
+
+To enrich the main dataset with holiday information so that business performance can be analyzed in the context of holidays.
+
 ---
+
+## What Was Done
+
+A separate holiday dataset was prepared and integrated into the main working dataset (`df_wk`).
+
+The integration was performed using:
+
+- Date
+- Country
+
+A left join was used to merge both datasets.
+
+---
+
+## Data Preparation
+
+The holiday dataset was cleaned before merging:
+
+- Selected only required columns:
+  - Date
+  - Country
+  - Holiday_Name
+
+- Renamed column:
+  - Name → Holiday_Name
+
+- Standardized country values to match main dataset format
+
+---
+
+## Country Standardization
+
+Country names in `df_wk` were aligned with the holiday dataset.
+
+Examples:
+
+- UNITED STATES → US  
+- UNITED KINGDOM → UK  
+- NEW ZEALAND → NEW-ZEALAND  
+- SOUTH KOREA → SOUTH-KOREA  
+
+This ensured accurate matching during merge.
+
+---
+
+## Merge Logic
+
+The merge was performed using:
+
+- Date
+- Country
+
+Join Type: Left Join
+
+### Why Left Join
+
+- Keeps all records from main dataset
+- Only adds holiday information
+- No data loss
+
+---
+
+## Columns Added
+
+After merging, the following columns were added:
+
+### Holiday_Name
+
+- Contains name of the holiday
+- Null if no holiday exists
+
+### Is_Holiday
+
+- Created using Holiday_Name
+- 1 → Holiday  
+- 0 → Non-holiday  
+
+### Holiday_Type
+
+- Added as a default column
+- Value: Public
+
+---
+
+## Code Logic
+
+```python
+df_wk = df_wk.merge(
+    holiday_df,
+    on=['Date', 'Country'],
+    how='left'
+)
+
+df_wk['Is_Holiday'] = df_wk['Holiday_Name'].notna().astype(int)
+
+df_wk['Holiday_Type'] = 'Public'
+````
+
+---
+
+## Validation Performed
+
+* Verified matching records where holiday exists
+* Checked non-holiday rows remain unchanged
+* Ensured no row duplication
+* Confirmed no data loss after merge
+
+---
+
+## Output Behavior
+
+* Holiday rows → Holiday_Name populated, Is_Holiday = 1
+* Non-holiday rows → Holiday_Name = NaN, Is_Holiday = 0
+
+---
+
+## Business Impact
+
+* Explains demand spikes and drops during holidays
+* Helps in workforce planning and staffing decisions
+* Improves KPI interpretation (Service Level, Utilization, AHT)
+* Enables better forecasting models
+
+---
+
+## Design Principles Followed
+
+* No modification to original dataset
+* All transformations applied on working dataset
+* No data loss due to merge
+* Fully traceable transformation logic
+
+
+---
+
+## Summary
+
+Holiday data was successfully integrated into the dataset using controlled transformations and business rules.
+
+The dataset is now enriched with holiday context and ready for advanced analytics and forecasting.
+
+
 
 # Next Steps (Planned)
 
@@ -355,7 +504,13 @@ Queue_Standardized
 * Validate Service Level, AHT, Occupancy, Utilization
 * Ensure business logic correctness
 
+
 ---
+
+### Dashboard / Analytics
+
+* Build reporting layer (Power BI / Tableau)
+
 
 # Key Design Principles
 
@@ -366,23 +521,6 @@ Queue_Standardized
 
 ---
 
-# Execution Guide
-
-## Install Dependencies
-
-```id="installfinal2"
-pip install pandas numpy fuzzywuzzy python-Levenshtein
-```
-
----
-
-## Run Pipeline
-
-```id="runfinal2"
-python 02_wfo_end_to_end_pipeline.py
-```
-
----
 
 # Business Impact
 
