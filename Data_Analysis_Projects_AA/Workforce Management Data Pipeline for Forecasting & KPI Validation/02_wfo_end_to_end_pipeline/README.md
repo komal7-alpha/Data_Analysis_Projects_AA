@@ -482,28 +482,231 @@ Holiday data was successfully integrated into the dataset using controlled trans
 The dataset is now enriched with holiday context and ready for advanced analytics and forecasting.
 
 
-
-# Next Steps (Planned)
-
-## Feature Engineering
-
-* Create derived fields required for analytics
-* Prepare dataset for aggregation and reporting
+Sahi bol rahe ho — Step 6 = **Feature Engineering**, KPI uska part hai, but naming galat ho gaya tha.
+Yeh corrected, clean, numbering-aligned version hai.
 
 ---
 
-## SQL Ingestion
+## ## Step 06: Feature Engineering
 
-* Load cleaned data into SQL Server
-* Ensure schema consistency
+### What this step is
+
+Creation of derived columns (features) required for analysis and KPI calculation.
 
 ---
 
-## KPI Validation
+### Why we are doing this
 
-* Validate Service Level, AHT, Occupancy, Utilization
-* Ensure business logic correctness
+#### Technical
 
+* Raw dataset lacks derived metrics
+* Required fields must be calculated before SQL load
+
+#### Business
+
+* Enables performance tracking
+* Supports reporting and workforce planning
+
+---
+
+### Features Created
+
+#### 06.1 Service Level
+
+```python
+df_wk['Service_Level_Percent'] = (
+    df_wk['Handled_Volume'] / df_wk['Offered_Volume']
+) * 100
+```
+
+* Measures percentage of handled demand
+
+---
+
+#### 06.2 Abandon Rate
+
+```python
+df_wk['Abandon_Rate'] = (
+    df_wk['Abandoned_Volume'] / df_wk['Offered_Volume']
+) * 100
+```
+
+* Measures percentage of abandoned demand
+
+---
+
+#### 06.3 Productivity (Volume per Agent)
+
+```python
+df_wk['Volume_per_Agent'] = (
+    df_wk['Handled_Volume'] / df_wk['Active_Agents']
+)
+
+df_wk['Volume_per_Agent'] = df_wk['Volume_per_Agent'].replace([float('inf')], 0)
+```
+
+* Measures workload per agent
+* Handles divide-by-zero cases
+
+---
+
+### Output
+
+* Dataset enriched with derived features
+* Ready for SQL ingestion
+
+---
+
+## ## Step 07: SQL Ingestion
+
+### What this step is
+
+Load processed dataset into SQL Server.
+
+---
+
+### Why we are doing this
+
+#### Technical
+
+* Move data from Python to persistent storage
+* Enable external system access
+
+#### Business
+
+* Centralized data storage
+* Supports reporting tools (Power BI)
+
+---
+
+### Steps Performed
+
+#### 07.1 SQL Connection
+
+```python
+import pyodbc
+
+conn = pyodbc.connect(
+    "Driver={SQL Server};"
+    "Server=localhost\\SQLEXPRESS01;"
+    "Database=WFM;"
+    "Trusted_Connection=yes;"
+)
+
+cursor = conn.cursor()
+```
+
+---
+
+#### 07.2 Table Creation
+
+* Table: `wfm_forecasting_base`
+* Stores final processed dataset
+
+---
+
+#### 07.3 Data Load
+
+```python
+for row in df_wk.itertuples(index=False):
+    cursor.execute(insert_query, tuple(row))
+
+conn.commit()
+```
+
+---
+
+#### 07.4 Validation
+
+```python
+cursor.execute("SELECT COUNT(*) FROM wfm_forecasting_base")
+print(cursor.fetchone()[0])
+```
+
+---
+
+### Output
+
+* Data successfully inserted into SQL
+* Table ready for querying
+
+---
+
+## ## Step 08: KPI Validation
+
+### What this step is
+
+Validate correctness of KPIs after SQL ingestion.
+
+---
+
+### Why we are doing this
+
+#### Technical
+
+* Ensure SQL values match computed values
+
+#### Business
+
+* Prevent incorrect reporting
+* Ensure trust in KPIs
+
+---
+
+### 08.1 Service Level Validation
+
+```sql
+SELECT 
+    Service_Level_Percent,
+    (Handled_Volume * 1.0 / Offered_Volume) * 100 AS Recalculated_SL
+FROM WFM.dbo.wfm_forecasting_base
+```
+
+* Result: Values matched
+
+---
+
+### 08.2 Abandon Rate Validation
+
+```sql
+SELECT 
+    Abandon_Rate,
+    (Abandoned_Volume * 1.0 / Offered_Volume) * 100 AS Recalculated_AR
+FROM WFM.dbo.wfm_forecasting_base
+```
+
+* Result: Values matched
+
+---
+
+### 08.3 Productivity Validation
+
+```sql
+SELECT 
+    Volume_per_Agent,
+    CASE 
+        WHEN Active_Agents = 0 THEN 0
+        ELSE (Handled_Volume * 1.0 / Active_Agents)
+    END AS Recalculated_VPA
+FROM WFM.dbo.wfm_forecasting_base
+```
+
+* Result: Values matched
+* Divide-by-zero handled
+
+---
+
+### Final Observation
+
+* All KPIs validated successfully
+* SQL and Python calculations are consistent
+* No data integrity issues found
+
+---
+
+### Dataset Status
+
+Clean + Standardized + Feature Engineered + SQL Loaded + KPI Validated
 
 ---
 
