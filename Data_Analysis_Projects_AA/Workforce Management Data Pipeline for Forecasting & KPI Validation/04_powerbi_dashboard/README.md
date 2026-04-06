@@ -445,6 +445,123 @@ Example:
 
 ---
 
+### Step 8: Visualization Layer — Business Graphs (Demand, Performance, Distribution)
+
+#### What was done
+
+* Added four key visuals to represent different aspects of the data:
+
+Before building visuals, it is important to understand how charts work in Power BI:
+
+* X-axis → categories (what you compare)
+* Y-axis → numbers (what you measure)
+
+This basic concept helps in correctly designing all charts.
+
+---
+
+1. Volume by Holiday Type  
+   - X-axis: Holiday_Label  
+   - Y-axis: SUM(Offered_Volume)  
+
+   Explanation:  
+   Holiday_Label is a category (Holiday vs Non-Holiday), so it is placed on X-axis.  
+   Offered_Volume is a numeric field, so it is aggregated using SUM and placed on Y-axis.  
+
+   This chart compares total workload between holiday and non-holiday conditions.
+
+---
+
+2. Service Level by Holiday Type  
+   - X-axis: Holiday_Label  
+   - Y-axis: Service_Level (measure)  
+
+   Explanation:  
+   Service_Level is a calculated measure, not a raw column.  
+   It represents performance, so it is placed on Y-axis.  
+
+   This chart compares how efficiently the system performs under different conditions.
+
+---
+
+3. Top Countries by Volume  
+   - Y-axis: Country  
+   - X-axis: SUM(Offered_Volume)  
+   - Applied Top N filter (Top 5 based on Offered_Volume)  
+
+   Explanation:  
+   Country is a category, so it is placed on axis.  
+   Offered_Volume is summed to show total workload per country.  
+
+   Top N filter is applied to avoid showing all countries and focus only on the most important ones.
+
+---
+
+4. Volume Distribution by Channel  
+   - Legend: Channel  
+   - Values: SUM(Offered_Volume)  
+
+   Explanation:  
+   Channel represents different communication types like Voice, Email, and Chat.  
+   Offered_Volume is used as value to show how workload is distributed across these channels.  
+
+   This helps understand how work is split between different communication modes.
+
+---
+
+#### Why this was done
+
+* KPI cards alone do not provide visual understanding
+* Needed graphical representation to:
+  - Compare demand
+  - Compare performance
+  - Identify geographic distribution
+  - Understand channel mix
+
+* Helps transform raw numbers into intuitive insights
+
+---
+
+#### What this step shows
+
+* Demand comparison between Holiday and Non-Holiday periods
+* Performance comparison using Service Level
+* Top contributing countries based on workload
+* Distribution of workload across different communication channels
+
+---
+
+#### Data interpretation
+
+Example:
+
+* Non-Holiday Volume is significantly higher than Holiday Volume  
+* Service Level remains relatively stable across both conditions  
+* A few countries contribute the majority of workload  
+* Workload is distributed across channels like Voice, Email, and Chat  
+
+---
+
+#### Business meaning
+
+* Demand is highly concentrated on non-holiday periods  
+* System performance remains consistent even when demand changes  
+* Workload is not evenly distributed across countries  
+* Channel mix helps identify where most operational effort is required  
+
+---
+
+#### Data story
+
+* The system experiences significantly higher demand during non-holiday periods  
+* Despite variation in workload, performance (Service Level) remains stable  
+* Workload is concentrated in a few key countries, indicating regional demand patterns  
+* Different communication channels contribute differently to total workload, highlighting operational distribution  
+
+* Together, these visuals provide a complete view of demand, performance, geography, and channel behavior in a single dashboard layer
+
+---
+
 ## Current Status
 
 * Data successfully connected from SQL
@@ -454,7 +571,8 @@ Example:
 * Holiday vs Non-Holiday Volume comparison added
 * Holiday filter (slicer) added for interactive analysis
 * Core filters (Date, Country, Channel) added for detailed exploration
+* Business visuals added for demand, performance, and distribution analysis
 
-Dashboard development will continue with layout refinement and additional insights.
+Dashboard development will continue with layout refinement and final presentation improvements.
 
 ---
