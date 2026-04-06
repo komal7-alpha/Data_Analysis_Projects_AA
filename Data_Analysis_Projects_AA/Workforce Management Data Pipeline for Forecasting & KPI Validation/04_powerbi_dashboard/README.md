@@ -381,6 +381,70 @@ Example:
 
 ---
 
+### Step 7: Interaction Layer — Core Filters (Date, Country, Channel)
+
+#### What was done
+
+* Added a slicer for `Date`
+* Configured Date slicer to "Between" range selection
+* Added a slicer for `Country`
+* Added a slicer for `Channel`
+* Set Country and Channel slicers to Dropdown style
+* Aligned all slicers horizontally for consistent layout
+
+---
+
+#### Why this was done
+
+* KPI cards alone do not allow detailed analysis
+* Needed filters to explore data across different dimensions
+* Enables users to analyze performance across time, geography, and communication channels
+
+---
+
+#### What this step shows
+
+* Provides control to filter the dashboard by:
+  - Time (Date range)
+  - Location (Country)
+  - Communication type (Channel)
+
+* All KPIs dynamically update based on selected filters
+
+---
+
+#### Data interpretation
+
+Example:
+
+* Selecting a specific date range:
+  Shows performance only for that time period
+
+* Selecting a specific country:
+  Filters data to that region
+
+* Selecting a specific channel:
+  Displays metrics for that communication type
+
+---
+
+#### Business meaning
+
+* Helps identify trends over time
+* Enables region-wise performance comparison
+* Allows channel-level analysis for better decision-making
+* Supports targeted workforce planning
+
+---
+
+#### Data story
+
+* System performance and demand are not constant across time, regions, and channels
+* By applying filters, users can uncover patterns such as peak periods, regional differences, and channel-specific behavior
+* This enables deeper exploration beyond high-level KPIs
+
+---
+
 ## Current Status
 
 * Data successfully connected from SQL
@@ -389,7 +453,8 @@ Example:
 * Holiday vs Non-Holiday Service Level comparison added
 * Holiday vs Non-Holiday Volume comparison added
 * Holiday filter (slicer) added for interactive analysis
+* Core filters (Date, Country, Channel) added for detailed exploration
 
-Dashboard development will continue with additional KPIs and interaction layers.
+Dashboard development will continue with layout refinement and additional insights.
 
 ---
