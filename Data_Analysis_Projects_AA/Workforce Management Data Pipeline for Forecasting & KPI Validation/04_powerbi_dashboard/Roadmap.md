@@ -154,7 +154,22 @@ This section allows users to dynamically explore the data.
 
 ---
 
-### Step 8: Formatting and Design
+### Step 8: Add Cross-Page Summary Visual
+
+* Create a combined summary visual representing key metrics from all pages
+* Include metrics such as:
+  - Total Volume
+  - Service Level
+  - Holiday Impact
+  - Utilization
+  - Volume per Agent
+
+* Use a single chart (e.g., clustered column chart) to represent all metrics
+* This visual acts as a high-level snapshot of the entire dashboard ecosystem
+
+---
+
+### Step 9: Formatting and Design
 
 * Use consistent titles for all visuals
 * Apply proper number formatting (Millions, Percentage)
@@ -172,6 +187,7 @@ The summary dashboard answers the following questions:
 3. Does performance change during holidays?
 4. Does demand change during holidays?
 5. Can the user explore data dynamically using filters?
+6. What is the overall system snapshot across all analytical dimensions?
 
 ---
 
@@ -181,5 +197,6 @@ The summary dashboard answers the following questions:
 * Clear comparison between holiday and non-holiday behavior
 * Interactive filtering capability
 * Business-ready visualization for decision-making
+* High-level summary of all analytical pages in a single view
 
 ---
