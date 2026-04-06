@@ -95,7 +95,14 @@ The dataset helps answer questions like:
 
 ---
 
-### Step 2: Total Offered Volume KPI
+#### Data story
+
+* All analysis in the dashboard is based on a single trusted dataset
+* Ensures consistency between backend processing and reporting layer
+
+---
+
+### Step 2: KPI Creation — Total Offered Volume
 
 #### What was done
 
@@ -131,19 +138,19 @@ This means:
 
 ---
 
-### Step 3: Service Level KPI (Measure)
+#### Data story
+
+* The system is handling a high volume of incoming requests
+* This KPI sets the baseline for understanding overall workload before analyzing performance
+
+---
+
+### Step 3: KPI Creation — Service Level (Measure)
 
 #### What was done
 
 * Created a custom measure:
-
-```
-Service_Level = 
-DIVIDE(
-    SUM(Handled_Volume),
-    SUM(Offered_Volume)
-)
-```
+Service_Level = DIVIDE(SUM(Handled_Volume),SUM(Offered_Volume))
 
 * Displayed it using a Card visual
 * Formatted as percentage
@@ -186,6 +193,69 @@ This means:
 
 ---
 
+#### Data story
+
+* The system is able to handle most of the incoming workload efficiently
+* A small percentage of requests are still not handled, indicating possible backlog or capacity gaps
+
+---
+
+### Step 4: KPI Creation — Holiday vs Non-Holiday Service Level
+
+#### What was done
+
+* Created two measures:
+Holiday_SL = CALCULATE(DIVIDE(SUM(Handled_Volume),SUM(Offered_Volume)),Is_Holiday = 1)
+
+NonHoliday_SL = CALCULATE(DIVIDE(SUM(Handled_Volume),SUM(Offered_Volume)),Is_Holiday = 0)
+
+* Displayed both using Card visuals
+* Formatted as percentage
+
+---
+
+#### Why this was done
+
+* Overall Service Level does not show behavior differences
+* Needed to compare performance between holiday and normal days
+* Helps identify operational impact of holidays
+
+---
+
+#### What this KPI shows
+
+* Service Level during holidays
+* Service Level during non-holiday days
+
+---
+
+#### Data interpretation
+
+Example:
+
+* Holiday Service Level = X%
+* Non-Holiday Service Level = Y%
+
+This means:
+
+* Performance varies depending on whether it is a holiday or not
+
+---
+
+#### Business meaning
+
+* Helps understand if holidays impact operational efficiency
+* Useful for workforce planning and staffing adjustments
+
+---
+
+#### Data story
+
+* Performance can change based on external factors like holidays
+* Comparing holiday vs non-holiday performance highlights whether the system is equally efficient under different conditions
+
+---
+
 ## Key Learning
 
 * Columns represent raw data
@@ -199,6 +269,7 @@ This means:
 * Data successfully connected from SQL
 * First KPI (Total Offered Volume) created
 * Second KPI (Service Level %) created
+* Holiday vs Non-Holiday comparison added
 
 Dashboard development will continue with additional KPIs and analysis layers.
 
