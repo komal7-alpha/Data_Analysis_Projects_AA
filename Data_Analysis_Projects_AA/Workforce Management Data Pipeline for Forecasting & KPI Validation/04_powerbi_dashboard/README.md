@@ -263,14 +263,71 @@ This means:
 * KPIs should always be built using measures for accuracy
 
 ---
+### Step 5: KPI Creation — Holiday vs Non-Holiday Volume
+
+#### What was done
+
+* Created two measures:
+Holiday_Volume = CALCULATE(SUM(Offered_Volume), Is_Holiday = 1)
+
+NonHoliday_Volume = CALCULATE(SUM(Offered_Volume), Is_Holiday = 0)
+
+* Displayed both using Card visuals
+* Formatted values in thousands (K) for better readability
+
+---
+
+#### Why this was done
+
+* Overall volume does not show demand variation across conditions
+* Needed to compare workload between holiday and non-holiday days
+* Helps understand how demand behaves under different conditions
+
+---
+
+#### What this KPI shows
+
+* Total incoming workload during holidays
+* Total incoming workload during non-holiday days
+
+---
+
+#### Data interpretation
+
+Example:
+
+* Holiday Volume = 106K
+* Non-Holiday Volume = 2701K
+
+This means:
+
+* A very small portion of total workload occurs during holidays
+* Most of the demand is concentrated on non-holiday days
+
+---
+
+#### Business meaning
+
+* Indicates strong variation in demand based on calendar conditions
+* Helps in planning workforce allocation more effectively
+* Avoids overstaffing during low-demand periods like holidays
+
+---
+
+#### Data story
+
+* Demand drops significantly during holidays compared to normal days
+* Workload is heavily skewed towards non-holiday periods
+* This pattern highlights the importance of adjusting staffing and planning based on holiday schedules
 
 ## Current Status
 
 * Data successfully connected from SQL
 * First KPI (Total Offered Volume) created
 * Second KPI (Service Level %) created
-* Holiday vs Non-Holiday comparison added
+* Holiday vs Non-Holiday Service Level comparison added
+* Holiday vs Non-Holiday Volume comparison added
 
-Dashboard development will continue with additional KPIs and analysis layers.
+Dashboard development will continue with additional KPIs and interaction layers.
 
 ---
