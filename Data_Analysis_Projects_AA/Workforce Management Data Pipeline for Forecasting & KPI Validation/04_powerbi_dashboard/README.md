@@ -320,6 +320,67 @@ This means:
 * Workload is heavily skewed towards non-holiday periods
 * This pattern highlights the importance of adjusting staffing and planning based on holiday schedules
 
+### Step 6: Interaction Layer — Holiday Filter (Slicer)
+
+#### What was done
+
+* Created a new column:
+Holiday_Label = IF(wfm_forecasting_base[Is_Holiday] = 1, "Holiday", "Non-Holiday")
+
+* Added a Slicer visual to the dashboard
+* Used `Holiday_Label` in the slicer
+* Changed slicer style to Dropdown
+* Enabled "Select All" option for flexibility
+
+---
+
+#### Why this was done
+
+* Raw column `Is_Holiday` (0/1) is not user-friendly
+* Needed a clear and readable filter for end users
+* Enables dynamic filtering of the entire dashboard
+* Allows users to switch between Holiday, Non-Holiday, or All data
+
+---
+
+#### What this step shows
+
+* Provides a control to filter the dashboard based on holiday conditions
+* All KPIs and visuals update dynamically based on selection
+
+---
+
+#### Data interpretation
+
+Example:
+
+* When "Holiday" is selected:
+  Only holiday data is shown
+
+* When "Non-Holiday" is selected:
+  Only non-holiday data is shown
+
+* When "All" is selected:
+  Full dataset is displayed
+
+---
+
+#### Business meaning
+
+* Enables focused analysis on specific conditions
+* Helps compare performance and demand under different scenarios
+* Improves usability of the dashboard for decision-making
+
+---
+
+#### Data story
+
+* The same system behaves differently under different conditions
+* By filtering between holiday and non-holiday data, users can explore how workload and performance vary across scenarios
+* This adds an exploration layer on top of the KPI comparisons
+
+---
+
 ## Current Status
 
 * Data successfully connected from SQL
@@ -327,6 +388,7 @@ This means:
 * Second KPI (Service Level %) created
 * Holiday vs Non-Holiday Service Level comparison added
 * Holiday vs Non-Holiday Volume comparison added
+* Holiday filter (slicer) added for interactive analysis
 
 Dashboard development will continue with additional KPIs and interaction layers.
 
