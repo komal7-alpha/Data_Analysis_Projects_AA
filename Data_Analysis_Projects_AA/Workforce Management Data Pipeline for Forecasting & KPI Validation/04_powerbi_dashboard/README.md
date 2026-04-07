@@ -561,6 +561,147 @@ Example:
 * Together, these visuals provide a complete view of demand, performance, geography, and channel behavior in a single dashboard layer
 
 ---
+---
+
+### Step 9: Dashboard Layout & Formatting (Structure, Alignment, Presentation)
+
+#### What was done
+
+* Structured the entire dashboard into clear sections:
+
+1. Title Section  
+   - Added a centered title:  
+     Workforce Management Dashboard Summary  
+
+2. KPI Row (Top Row)  
+   - Placed six KPI cards in a single horizontal line:
+     - Total Volume  
+     - Service Level  
+     - Holiday SL  
+     - Non-Holiday SL  
+     - Holiday Volume  
+     - Non-Holiday Volume  
+
+3. Filter Row (Second Row)  
+   - Placed all slicers in one aligned row:
+     - Date (range slider)
+     - Country (dropdown)
+     - Channel (dropdown)
+     - Holiday Filter (dropdown)
+
+4. Secondary Metrics Row (Third Row)  
+   - Added supporting KPIs:
+     - Avg Volume per Agent
+     - Avg Agent Utilization
+     - Holiday Impact on SL  
+
+5. Visualization Layer  
+   - Positioned visuals in a structured layout:
+     - Donut chart (center-right, between metrics and graphs)
+     - Bottom row:
+       - Volume by Holiday Type
+       - Service Level by Holiday Type
+       - Top Countries by Volume  
+
+---
+
+#### Why this was done
+
+* Raw visuals without structure create confusion
+* Needed clear grouping of:
+  - KPIs (what is happening)
+  - Filters (how to explore)
+  - Metrics (why it is happening)
+  - Charts (where and how it varies)
+
+* Helps users understand the dashboard flow without explanation
+
+---
+
+#### What this step shows
+
+* A clean and structured dashboard layout
+* Logical flow from top to bottom:
+  - High-level summary
+  - User controls (filters)
+  - Supporting metrics
+  - Visual insights
+
+---
+
+#### Layout logic (Important for beginners)
+
+The dashboard follows a clear reading pattern:
+
+1. Top → Overall system performance  
+2. Middle → Filters to explore data  
+3. Below → Supporting metrics  
+4. Bottom → Visual analysis  
+
+This ensures users can understand the dashboard without guidance.
+
+---
+
+#### Formatting improvements applied
+
+* Renamed technical labels:
+  - Holiday_SL → Holiday SL
+  - NonHoliday_SL → Non-Holiday SL
+
+* Standardized number formatting:
+  - Volume → Thousands (K)
+  - Service Level → Percentage (%)
+  - Metrics → Limited decimal places
+
+* Aligned all visuals:
+  - KPI cards in one straight row
+  - Filters in one horizontal line
+  - Metrics centered and evenly spaced
+
+* Removed unnecessary visual noise:
+  - Reduced background usage
+  - Avoided excessive borders
+  - Maintained clean white canvas
+
+* Improved visual spacing:
+  - Ensured proper gaps between sections
+  - Avoided overlapping elements
+
+---
+
+#### Data interpretation
+
+* Users can now clearly see:
+  - Total workload and performance at a glance
+  - Differences between holiday and non-holiday behavior
+  - Key contributing countries and channels
+  - Supporting metrics explaining operational efficiency
+
+---
+
+#### Business meaning
+
+* A well-structured dashboard improves decision-making speed
+* Users can quickly:
+  - Identify demand patterns
+  - Compare performance across conditions
+  - Drill down using filters
+* Reduces dependency on technical explanations
+
+---
+
+#### Data story
+
+* The dashboard now tells a complete story:
+
+  - The system handles a large volume of requests  
+  - Performance remains stable across different conditions  
+  - Demand is significantly higher during non-holiday periods  
+  - Workload is concentrated in specific countries and channels  
+
+* The structured layout ensures that users can move from summary to detailed insights seamlessly
+
+---
 
 ## Current Status
 
@@ -572,7 +713,11 @@ Example:
 * Holiday filter (slicer) added for interactive analysis
 * Core filters (Date, Country, Channel) added for detailed exploration
 * Business visuals added for demand, performance, and distribution analysis
+* Dashboard structured with proper layout and alignment
+* Formatting applied for clean and professional presentation
 
-Dashboard development will continue with layout refinement and final presentation improvements.
+Dashboard development will continue with additional pages and deeper analysis layers.
+
+---
 
 ---
