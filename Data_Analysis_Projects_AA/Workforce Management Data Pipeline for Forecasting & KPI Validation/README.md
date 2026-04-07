@@ -102,7 +102,11 @@ Purpose:
 * Replicate real enterprise input data
 * Enable pipeline testing and transformation logic
 
-Final Generated dataset generated : https://www.kaggle.com/datasets/komalkomal7/call-center-workforce-dataset-wfo-aht-kpi
+Final Generated dataset generated : 
+https://www.kaggle.com/datasets/komalkomal7/call-center-workforce-dataset-wfo-aht-kpi
+
+Output Dataset after pipeline creation:
+https://www.kaggle.com/datasets/komalkomal7/workforce-management-data-pipeline-and-kpi-dashboard
 ---
 
 ### 2. Holiday Data (Web Scraping)
